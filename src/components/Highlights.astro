@@ -4,7 +4,8 @@ import { getEventsByLang } from '../lib/events';
 import { useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
-const { lang } = Astro.props as { lang: Lang };
+interface Props { lang: Lang }
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 const events = (await getEventsByLang(lang)).filter((e) => e.data.featured).slice(0, 3);
 ---
