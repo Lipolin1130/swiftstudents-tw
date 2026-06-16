@@ -24,7 +24,6 @@ const nav = [
     <nav class="site-nav" data-nav aria-label={t('a11y.nav_primary')}>
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
       <a class="lang-toggle" href={altUrl} aria-label={t('a11y.switch_lang')} hreflang={lang === 'en' ? 'zh-Hant' : 'en'}>{altLabel}</a>
-      <a class="btn btn--primary nav-cta" href={SITE.discordUrl}>{t('nav.contact')}</a>
     </nav>
   </div>
 </header>
@@ -49,7 +48,6 @@ const nav = [
   .site-nav a { color: var(--color-text-muted); }
   .site-nav a:hover { color: var(--color-text); }
   .lang-toggle { font-weight: 500; color: var(--color-accent) !important; }
-  .nav-cta { color: #fff !important; }
   .nav-toggle { display: none; }
   @media (max-width: 768px) {
     .nav-toggle {

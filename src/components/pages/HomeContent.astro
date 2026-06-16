@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import Hero from '../Hero.astro';
 import AboutSection from '../AboutSection.astro';
 import Highlights from '../Highlights.astro';
-import CommunityCTA from '../CommunityCTA.astro';
 import EventList from '../EventList.astro';
 import { getEventsByLang } from '../../lib/events';
 import { splitEvents } from '../../lib/event-utils';
@@ -45,8 +44,6 @@ const pastPreview = past.slice(0, 4);
       </div>
     </div>
   </section>
-
-  <CommunityCTA lang={lang} />
 </Layout>
 <style>
   .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
