@@ -1,0 +1,24 @@
+---
+import { useTranslations, localizePath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+import { SITE } from '../config';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+<section class="hero">
+  <div class="container">
+    <h1 class="hero__title">{SITE.name}</h1>
+    <p class="hero__tagline muted">{t('hero.tagline')}</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href={SITE.discordUrl}>{t('hero.cta_primary')}</a>
+      <a class="btn btn--ghost" href={localizePath('/events', lang)}>{t('hero.cta_secondary')}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .hero { padding-block: clamp(4rem, 12vw, 9rem); }
+  .hero__title { font-size: var(--fs-hero); max-width: 16ch; }
+  .hero__tagline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-top: var(--space-2); max-width: 46ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-4); }
+</style>

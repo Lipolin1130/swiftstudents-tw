@@ -1,0 +1,26 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+import { SITE } from '../config';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+<section class="section">
+  <div class="container">
+    <div class="cta">
+      <h2>{t('community.heading')}</h2>
+      <p class="muted">{t('community.body')}</p>
+      <a class="btn btn--primary" href={SITE.discordUrl}>{t('community.cta')}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .cta {
+    background: var(--color-accent-soft); border-radius: var(--radius-lg);
+    padding: clamp(2rem, 6vw, 4rem); text-align: center;
+  }
+  .cta h2 { color: var(--color-accent-ink); }
+  .cta p { margin-top: 0.5rem; }
+  .cta .btn { margin-top: var(--space-3); }
+</style>

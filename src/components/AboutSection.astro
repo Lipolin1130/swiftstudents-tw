@@ -1,0 +1,39 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const points = [
+  { title: t('about.p1_title'), body: t('about.p1_body') },
+  { title: t('about.p2_title'), body: t('about.p2_body') },
+  { title: t('about.p3_title'), body: t('about.p3_body') },
+];
+---
+<section id="about" class="section">
+  <div class="container">
+    <div class="about__intro">
+      <h2>{t('about.heading')}</h2>
+      <p class="muted">{t('about.body')}</p>
+    </div>
+    <div class="about__grid">
+      {points.map((p) => (
+        <div class="about__point">
+          <h3>{p.title}</h3>
+          <p class="muted">{p.body}</p>
+        </div>
+      ))}
+    </div>
+    <p class="about__disclaimer muted">{t('about.disclaimer')}</p>
+  </div>
+</section>
+<style>
+  .about__intro { max-width: 52ch; }
+  .about__grid {
+    display: grid; gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    margin-top: var(--space-6);
+  }
+  .about__point h3 { margin-bottom: 0.4rem; }
+  .about__disclaimer { font-size: var(--fs-small); margin-top: var(--space-6); }
+</style>
