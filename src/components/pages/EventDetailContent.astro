@@ -13,11 +13,14 @@ const { Content } = await render(entry);
 const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
   year: 'numeric', month: 'long', day: 'numeric',
 }).format(entry.data.date);
+const isUpcoming = entry.data.date.getTime() >= new Date().getTime();
+const backPath = localizePath(isUpcoming ? '/events' : '/activities', lang);
+const backLabel = t(isUpcoming ? 'detail.back_events' : 'detail.back_activities');
 ---
 <Layout lang={lang} title={`${entry.data.title} · ${SITE.name}`} description={entry.data.summary}>
   <article class="section">
     <div class="container article">
-      <a class="link-accent" href={localizePath('/activities', lang)}>← {t('detail.back')}</a>
+      <a class="link-accent" href={backPath}>← {backLabel}</a>
       <h1 class="article__title">{entry.data.title}</h1>
       <p class="muted article__meta">{dateFmt} · {entry.data.location}</p>
       {entry.data.registerUrl && (
