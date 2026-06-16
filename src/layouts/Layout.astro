@@ -15,10 +15,11 @@ interface Props {
 const { lang, title, description, image } = Astro.props;
 const t = useTranslations(lang);
 
-const canonical = new URL(Astro.url.pathname, SITE.url).href.replace(/\/$/, '') || SITE.url;
+const abs = (path: string) => new URL(path, SITE.url).href.replace(/\/$/, '') || SITE.url;
+const canonical = abs(Astro.url.pathname);
 const paths = localizedPaths(Astro.url.pathname);
-const zhHref = new URL(paths['zh-Hant'], SITE.url).href;
-const enHref = new URL(paths.en, SITE.url).href;
+const zhHref = abs(paths['zh-Hant']);
+const enHref = abs(paths.en);
 const htmlLang = lang === 'en' ? 'en' : 'zh-Hant';
 const ogImage = image ? new URL(image, SITE.url).href : undefined;
 ---

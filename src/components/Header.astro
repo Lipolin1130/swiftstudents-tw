@@ -17,12 +17,12 @@ const nav = [
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="brand" href={home}>{SITE.name}</a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" data-nav-toggle>
+    <button class="nav-toggle" aria-label={t('a11y.menu')} aria-expanded="false" data-nav-toggle>
       <span></span><span></span><span></span>
     </button>
-    <nav class="site-nav" data-nav aria-label="Primary">
+    <nav class="site-nav" data-nav aria-label={t('a11y.nav_primary')}>
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a class="lang-toggle" href={altUrl} aria-label="Switch language" hreflang={lang === 'en' ? 'zh-Hant' : 'en'}>{altLabel}</a>
+      <a class="lang-toggle" href={altUrl} aria-label={t('a11y.switch_lang')} hreflang={lang === 'en' ? 'zh-Hant' : 'en'}>{altLabel}</a>
       <a class="btn btn--primary nav-cta" href={SITE.discordUrl}>{t('nav.contact')}</a>
     </nav>
   </div>

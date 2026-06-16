@@ -5,6 +5,10 @@ export const defaultLang: Lang = 'zh-Hant';
 export const ui: Record<Lang, Record<string, string>> = {
   'zh-Hant': {
     'a11y.skip': '跳到主要內容',
+    'a11y.menu': '選單',
+    'a11y.switch_lang': '切換語言',
+    'a11y.nav_primary': '主選單',
+    'a11y.nav_footer': '頁尾選單',
     'nav.about': '關於',
     'nav.events': '活動',
     'nav.activities': '過往活動',
@@ -50,6 +54,10 @@ export const ui: Record<Lang, Record<string, string>> = {
   },
   en: {
     'a11y.skip': 'Skip to main content',
+    'a11y.menu': 'Menu',
+    'a11y.switch_lang': 'Switch language',
+    'a11y.nav_primary': 'Primary navigation',
+    'a11y.nav_footer': 'Footer navigation',
     'nav.about': 'About',
     'nav.events': 'Events',
     'nav.activities': 'Activities',
