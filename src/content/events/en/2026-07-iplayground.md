@@ -2,7 +2,7 @@
 title: "2026 iPlayground"
 date: 2026-07-25
 endDate: 2026-07-26
-location: "National Chengchi University, Taipei"
+location: "NCCU CPBAE, Taipei"
 summary: "Taiwan's annual Apple developer community conference — two days on Apple platform development, AI, and software engineering."
 tags: ["Conference"]
 registerUrl: "https://iplayground.io/2026/"
