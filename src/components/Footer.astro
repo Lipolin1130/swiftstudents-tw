@@ -1,0 +1,44 @@
+---
+import { useTranslations, localizePath, getAltLangUrl } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+import { SITE } from '../config';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const altUrl = getAltLangUrl(Astro.url);
+const altLabel = lang === 'en' ? '繁體中文' : 'English';
+const year = 2026;
+---
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <p class="brand">{SITE.name}</p>
+      <p class="muted">{t('footer.tagline')}</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href={localizePath('/events', lang)}>{t('nav.events')}</a>
+      <a href={localizePath('/activities', lang)}>{t('nav.activities')}</a>
+      <a href={SITE.discordUrl}>Discord</a>
+      <a href={altUrl} hreflang={lang === 'en' ? 'zh-Hant' : 'en'}>{altLabel}</a>
+    </nav>
+  </div>
+  <div class="container site-footer__bottom">
+    <span class="muted">© {year} {SITE.name}</span>
+    <span class="muted">{t('footer.disclaimer')}</span>
+  </div>
+</footer>
+<style>
+  .site-footer { border-top: 1px solid var(--color-border); margin-top: var(--space-12); }
+  .site-footer__inner {
+    display: flex; flex-wrap: wrap; gap: var(--space-4);
+    justify-content: space-between; padding-block: var(--space-6) var(--space-3);
+  }
+  .brand { font-weight: 500; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: var(--fs-small); }
+  .footer-links a { color: var(--color-text-muted); }
+  .footer-links a:hover { color: var(--color-text); }
+  .site-footer__bottom {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: space-between;
+    padding-block: var(--space-3) var(--space-6); font-size: var(--fs-small);
+  }
+</style>

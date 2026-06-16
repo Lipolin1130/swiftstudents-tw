@@ -1,0 +1,67 @@
+---
+import { useTranslations, localizePath, getAltLangUrl } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+import { SITE } from '../config';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const home = localizePath('/', lang);
+const altUrl = getAltLangUrl(Astro.url);
+const altLabel = lang === 'en' ? '繁中' : 'EN';
+const nav = [
+  { href: home === '/' ? '/#about' : home + '#about', label: t('nav.about') },
+  { href: localizePath('/events', lang), label: t('nav.events') },
+  { href: localizePath('/activities', lang), label: t('nav.activities') },
+];
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href={home}>{SITE.name}</a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" data-nav aria-label="Primary">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a class="lang-toggle" href={altUrl} aria-label="Switch language" hreflang={lang === 'en' ? 'zh-Hant' : 'en'}>{altLabel}</a>
+      <a class="btn btn--primary nav-cta" href={SITE.discordUrl}>{t('nav.contact')}</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const btn = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-nav]');
+  btn?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(!!open));
+  });
+</script>
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .site-header__inner { display: flex; align-items: center; justify-content: space-between; min-height: 60px; }
+  .brand { font-weight: 500; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .site-nav { display: flex; align-items: center; gap: 1.5rem; font-size: var(--fs-small); }
+  .site-nav a { color: var(--color-text-muted); }
+  .site-nav a:hover { color: var(--color-text); }
+  .lang-toggle { font-weight: 500; color: var(--color-accent) !important; }
+  .nav-cta { color: #fff !important; }
+  .nav-toggle { display: none; }
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: inline-flex; flex-direction: column; gap: 4px;
+      background: none; border: 0; cursor: pointer; padding: 8px;
+    }
+    .nav-toggle span { width: 22px; height: 2px; background: var(--color-text); display: block; }
+    .site-nav {
+      position: absolute; top: 60px; left: 0; right: 0;
+      flex-direction: column; align-items: flex-start; gap: 1rem;
+      background: var(--color-bg); border-bottom: 1px solid var(--color-border);
+      padding: 1.25rem var(--space-3); display: none;
+    }
+    .site-nav.is-open { display: flex; }
+  }
+</style>
