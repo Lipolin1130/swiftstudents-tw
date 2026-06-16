@@ -1,0 +1,40 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import type { EventEntry } from '../../lib/events';
+import { useTranslations, localizePath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+import { SITE } from '../../config';
+
+interface Props { lang: Lang; entry: EventEntry; }
+const { lang, entry } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
+  year: 'numeric', month: 'long', day: 'numeric',
+}).format(entry.data.date);
+---
+<Layout lang={lang} title={`${entry.data.title} · ${SITE.name}`} description={entry.data.summary}>
+  <article class="section">
+    <div class="container article">
+      <a class="link-accent" href={localizePath('/activities', lang)}>← {t('detail.back')}</a>
+      <h1 class="article__title">{entry.data.title}</h1>
+      <p class="muted article__meta">{dateFmt} · {entry.data.location}</p>
+      {entry.data.registerUrl && (
+        <a class="btn btn--primary article__cta" href={entry.data.registerUrl}>{t('detail.register')}</a>
+      )}
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>
+<style>
+  .article { max-width: 720px; }
+  .article__title { margin-top: var(--space-3); }
+  .article__meta { margin-top: 0.5rem; }
+  .article__cta { margin-top: var(--space-3); }
+  .prose { margin-top: var(--space-4); }
+  .prose :global(p) { margin-block: var(--space-2); }
+  .prose :global(h2) { font-size: var(--fs-h3); margin-top: var(--space-4); }
+</style>
