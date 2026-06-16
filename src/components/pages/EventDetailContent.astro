@@ -24,7 +24,7 @@ const backLabel = t(isUpcoming ? 'detail.back_events' : 'detail.back_activities'
       <h1 class="article__title">{entry.data.title}</h1>
       <p class="muted article__meta">{dateFmt} · {entry.data.location}</p>
       {entry.data.registerUrl && (
-        <a class="btn btn--primary article__cta" href={entry.data.registerUrl}>{t('detail.register')}</a>
+        <a class="btn btn--primary article__cta" href={entry.data.registerUrl}>{isUpcoming ? t('detail.register') : t('detail.more')}</a>
       )}
       <div class="prose">
         <Content />
