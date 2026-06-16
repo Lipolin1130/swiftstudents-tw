@@ -3,7 +3,8 @@ import { useTranslations, localizePath, getAltLangUrl } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 import { SITE } from '../config';
 
-const { lang } = Astro.props as { lang: Lang };
+interface Props { lang: Lang }
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 const home = localizePath('/', lang);
 const altUrl = getAltLangUrl(Astro.url);
