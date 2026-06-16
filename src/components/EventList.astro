@@ -1,0 +1,25 @@
+---
+import EventCard from './EventCard.astro';
+import type { EventEntry } from '../lib/events';
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props { events: EventEntry[]; lang: Lang; emptyKey?: string; }
+const { events, lang, emptyKey = 'events.empty' } = Astro.props;
+const t = useTranslations(lang);
+---
+{events.length === 0 ? (
+  <p class="empty muted">{t(emptyKey)}</p>
+) : (
+  <div class="grid">
+    {events.map((entry) => <EventCard entry={entry} lang={lang} />)}
+  </div>
+)}
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-3);
+  }
+  .empty { padding-block: var(--space-4); }
+</style>
