@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../Hero.astro';
+import AboutSection from '../AboutSection.astro';
+import Highlights from '../Highlights.astro';
+import CommunityCTA from '../CommunityCTA.astro';
+import EventList from '../EventList.astro';
+import { getEventsByLang } from '../../lib/events';
+import { splitEvents } from '../../lib/event-utils';
+import { useTranslations, localizePath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { upcoming, past } = splitEvents(await getEventsByLang(lang));
+const upcomingPreview = upcoming.slice(0, 3);
+const pastPreview = past.slice(0, 4);
+---
+<Layout lang={lang} title={t('meta.home_title')} description={t('meta.home_desc')}>
+  <Hero lang={lang} />
+  <AboutSection lang={lang} />
+  <Highlights lang={lang} />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>{t('events.heading')}</h2>
+        <a class="link-accent" href={localizePath('/events', lang)}>{t('common.see_all')} →</a>
+      </div>
+      <div class="section-head__list">
+        <EventList events={upcomingPreview} lang={lang} emptyKey="events.empty" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>{t('activities.heading_home')}</h2>
+        <a class="link-accent" href={localizePath('/activities', lang)}>{t('common.see_all')} →</a>
+      </div>
+      <div class="section-head__list">
+        <EventList events={pastPreview} lang={lang} emptyKey="activities.empty" />
+      </div>
+    </div>
+  </section>
+
+  <CommunityCTA lang={lang} />
+</Layout>
+<style>
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .section-head__list { margin-top: var(--space-4); }
+</style>
