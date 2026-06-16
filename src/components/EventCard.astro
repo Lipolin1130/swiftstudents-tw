@@ -34,7 +34,7 @@ const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
     display: flex; align-items: center; justify-content: center;
     border-bottom: 1px solid var(--color-border);
   }
-  .card__thumb-mark { width: 32px; height: 32px; color: var(--color-text); opacity: 0.15; }
+  .card__thumb :global(.card__thumb-mark) { width: 36px; height: 36px; color: var(--color-text); opacity: 0.2; }
   .card__body { padding: var(--space-3); display: flex; flex-direction: column; gap: 0.4rem; }
   .card__meta { font-size: var(--fs-small); }
   .card__summary { font-size: var(--fs-small); }
