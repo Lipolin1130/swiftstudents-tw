@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<Layout lang={lang} title={t('meta.notfound_title')} description={t('meta.notfound_desc')}>
+  <section class="section">
+    <div class="container notfound">
+      <h1>404</h1>
+      <p class="muted">{t('notfound.body')}</p>
+      <a class="btn btn--primary" href={localizePath('/', lang)}>{t('notfound.home')}</a>
+    </div>
+  </section>
+</Layout>
+<style>
+  .notfound { text-align: center; padding-block: var(--space-12); }
+  .notfound .btn { margin-top: var(--space-3); }
+</style>
