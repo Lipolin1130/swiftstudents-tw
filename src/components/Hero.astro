@@ -2,6 +2,7 @@
 import { useTranslations, localizePath } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 import { SITE } from '../config';
+import SwiftMark from './SwiftMark.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -9,6 +10,7 @@ const t = useTranslations(lang);
 ---
 <section class="hero">
   <div class="container">
+    <SwiftMark class="hero__logo" />
     <h1 class="hero__title">{SITE.name}</h1>
     <p class="hero__tagline muted">{t('hero.tagline')}</p>
     <div class="hero__actions">
@@ -19,6 +21,7 @@ const t = useTranslations(lang);
 </section>
 <style>
   .hero { padding-block: clamp(4rem, 12vw, 9rem); }
+  .hero__logo { width: clamp(56px, 9vw, 84px); height: auto; color: var(--color-text); margin-bottom: var(--space-3); }
   .hero__title { font-size: var(--fs-hero); max-width: 16ch; }
   .hero__tagline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-top: var(--space-2); max-width: 46ch; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-4); }

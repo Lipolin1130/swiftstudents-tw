@@ -3,6 +3,7 @@ import type { EventEntry } from '../lib/events';
 import { eventSlug } from '../lib/events';
 import { localizePath } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
+import SwiftMark from './SwiftMark.astro';
 
 interface Props { entry: EventEntry; lang: Lang; }
 const { entry, lang } = Astro.props;
@@ -13,7 +14,7 @@ const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
 }).format(entry.data.date);
 ---
 <a class="card" href={href}>
-  <div class="card__thumb" aria-hidden="true"><span>SS</span></div>
+  <div class="card__thumb" aria-hidden="true"><SwiftMark class="card__thumb-mark" /></div>
   <div class="card__body">
     <p class="card__meta muted">{dateFmt} · {entry.data.location}</p>
     <h3 class="card__title">{entry.data.title}</h3>
@@ -31,9 +32,9 @@ const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
   .card__thumb {
     aspect-ratio: 16 / 9; background: var(--color-surface);
     display: flex; align-items: center; justify-content: center;
-    color: var(--color-accent); font-weight: 500; font-size: 1.5rem; letter-spacing: 0.1em;
     border-bottom: 1px solid var(--color-border);
   }
+  .card__thumb-mark { width: 44px; height: 44px; color: var(--color-text); opacity: 0.15; }
   .card__body { padding: var(--space-3); display: flex; flex-direction: column; gap: 0.4rem; }
   .card__meta { font-size: var(--fs-small); }
   .card__summary { font-size: var(--fs-small); }
