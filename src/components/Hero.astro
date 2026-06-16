@@ -10,7 +10,7 @@ const t = useTranslations(lang);
 <section class="hero">
   <div class="container">
     <h1 class="hero__title">{SITE.name}</h1>
-    <p class="hero__tagline muted">{t('hero.tagline')}</p>
+    <p class="hero__tagline muted">{t('hero.tagline')}<br />{t('hero.tagline2')}</p>
     <div class="hero__actions">
       <a class="btn btn--primary" href={localizePath('/events', lang)}>{t('hero.cta_secondary')}</a>
     </div>
