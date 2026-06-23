@@ -23,6 +23,11 @@ const backLabel = t(isUpcoming ? 'detail.back_events' : 'detail.back_activities'
       <a class="link-accent" href={backPath}>← {backLabel}</a>
       <h1 class="article__title">{entry.data.title}</h1>
       <p class="muted article__meta">{dateFmt} · {entry.data.location}</p>
+      {entry.data.image && (
+        <div class="article__cover">
+          <img src={entry.data.image} alt="" loading="lazy" decoding="async" />
+        </div>
+      )}
       {entry.data.registerUrl && (
         <a class="btn btn--primary article__cta" href={entry.data.registerUrl}>{isUpcoming ? t('detail.register') : t('detail.more')}</a>
       )}
@@ -36,6 +41,11 @@ const backLabel = t(isUpcoming ? 'detail.back_events' : 'detail.back_activities'
   .article { max-width: 720px; }
   .article__title { margin-top: var(--space-3); }
   .article__meta { margin-top: 0.5rem; }
+  .article__cover {
+    margin-top: var(--space-3); aspect-ratio: 16 / 9;
+    border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden;
+  }
+  .article__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .article__cta { margin-top: var(--space-3); }
   .prose { margin-top: var(--space-4); }
   .prose :global(p) { margin-block: var(--space-2); }

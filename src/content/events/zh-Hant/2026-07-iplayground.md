@@ -4,6 +4,7 @@ date: 2026-07-25
 endDate: 2026-07-26
 location: "政大公企中心（台北）"
 summary: "台灣 Apple 開發社群的年度研討會，兩天聚焦 Apple 平台開發、AI 應用與軟體工程。"
+image: "https://assets.kktix.io/organization_resource_files/12572/76531/2026_kktix_image.png"
 tags: ["研討會"]
 registerUrl: "https://iplayground.io/2026/"
 ---

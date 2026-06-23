@@ -13,6 +13,7 @@ const events = defineCollection({
     endDate: z.coerce.date().optional(),
     location: z.string(),
     summary: z.string(),
+    image: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
     registerUrl: z.string().url().optional(),
     featured: z.boolean().default(false),

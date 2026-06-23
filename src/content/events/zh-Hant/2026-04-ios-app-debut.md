@@ -3,6 +3,7 @@ title: "2026 iOS App 登場時刻"
 date: 2026-04-29
 location: "逢甲大學"
 summary: "FCU iOS Club 成員展示這學期打造的 iOS App，現場互相交流、給予回饋。"
+image: "https://imagedelivery.net/cdkaXPuFls5qlrh3GM4hfA/7c3e3b68-6b7f-4205-75d3-147ec9348f00/public"
 tags: ["成果展示"]
 ---
 

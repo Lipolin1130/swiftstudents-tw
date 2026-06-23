@@ -3,6 +3,7 @@ title: "2025 iOS App 登場時刻"
 date: 2025-12-16
 location: "逢甲大學"
 summary: "FCU iOS Club 的 iOS App 開發活動，成員一起展示作品、交流當代 App 開發。"
+image: "https://imagedelivery.net/cdkaXPuFls5qlrh3GM4hfA/f741bc61-50bd-4786-8c99-64bdfa55c700/public"
 tags: ["成果展示"]
 registerUrl: "https://luma.com/68wxzqff"
 ---
