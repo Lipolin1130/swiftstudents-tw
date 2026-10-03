@@ -21,7 +21,7 @@ const paths = localizedPaths(Astro.url.pathname);
 const zhHref = abs(paths['zh-Hant']);
 const enHref = abs(paths.en);
 const htmlLang = lang === 'en' ? 'en' : 'zh-Hant';
-const ogImage = image ? new URL(image, SITE.url).href : undefined;
+const ogImage = new URL(image ?? '/og-default.jpg', SITE.url).href;
 ---
 <!doctype html>
 <html lang={htmlLang}>
@@ -38,7 +38,9 @@ const ogImage = image ? new URL(image, SITE.url).href : undefined;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImage} />
+    {!image && <meta property="og:image:width" content="1200" />}
+    {!image && <meta property="og:image:height" content="630" />}
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
