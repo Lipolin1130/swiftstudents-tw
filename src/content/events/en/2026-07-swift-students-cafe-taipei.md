@@ -5,7 +5,7 @@ location: "NCCU CPBAE, Taipei"
 summary: "Swift Students Cafe comes to Taiwan for the first time — Swift Student Challenge winners share their journey from idea to finished project, plus an on-site report from WWDC26."
 image: "https://swiftstudents.jp/og/events-swift-students-cafe-taipei.jpg"
 tags: ["Meetup"]
-registerUrl: "https://swiftstudents.jp/en/events/swift-students-cafe-taipei/"
+registerUrl: "https://luma.com/59e0vsix"
 ---
 
 Swift Students Cafe came to Taiwan for the first time, held during iPlayground 2026. Friends from the Swift Students Community and Swift Student Challenge winners shared their journey — from finding an idea and designing the experience to building with Swift and turning a concept into a completed project.

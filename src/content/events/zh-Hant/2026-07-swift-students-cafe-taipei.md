@@ -5,7 +5,7 @@ location: "政大公企中心（台北）"
 summary: "Swift Students Cafe 首次登台！Swift Student Challenge 得獎者分享從發想到完成專案的歷程，並帶來 WWDC26 現場報導。"
 image: "https://swiftstudents.jp/og/events-swift-students-cafe-taipei.jpg"
 tags: ["交流會"]
-registerUrl: "https://swiftstudents.jp/zh-tw/events/swift-students-cafe-taipei/"
+registerUrl: "https://luma.com/59e0vsix"
 ---
 
 Swift Students Cafe 首次登台，於 iPlayground 2026 期間舉辦。Swift Students Community 的朋友與 Swift Student Challenge 得獎者，分享他們從發想點子、設計體驗、以 Swift 開發，到把概念做成完整專案的歷程。
