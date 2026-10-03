@@ -15,6 +15,4 @@ export interface Winner extends Person {
   distinguished?: boolean;
 }
 
-export const communityBuilders: Person[] = [];
-
 export const sscWinners: Winner[] = [];
