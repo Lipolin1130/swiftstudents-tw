@@ -2,8 +2,9 @@
 import { useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+interface Props { lang: Lang; asPage?: boolean }
+const { lang, asPage = false } = Astro.props;
+const Heading = asPage ? 'h1' : 'h2';
 const t = useTranslations(lang);
 const points = [
   { title: t('about.p1_title'), body: t('about.p1_body') },
@@ -14,7 +15,7 @@ const points = [
 <section id="about" class="section">
   <div class="container">
     <div class="about__intro">
-      <h2>{t('about.heading')}</h2>
+      <Heading>{t('about.heading')}</Heading>
       <p class="muted">{t('about.body')}</p>
     </div>
     <div class="about__grid">

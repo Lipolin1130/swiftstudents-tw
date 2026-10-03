@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../Hero.astro';
 import Clubs from '../Clubs.astro';
-import AboutSection from '../AboutSection.astro';
 import Highlights from '../Highlights.astro';
 import EventList from '../EventList.astro';
 import { getEventsByLang } from '../../lib/events';
@@ -20,7 +19,6 @@ const pastPreview = past.slice(0, 4);
 <Layout lang={lang} title={t('meta.home_title')} description={t('meta.home_desc')}>
   <Hero lang={lang} />
   <Clubs lang={lang} />
-  <AboutSection lang={lang} />
   <Highlights lang={lang} />
 
   <section class="section">

@@ -10,7 +10,7 @@ const home = localizePath('/', lang);
 const altUrl = getAltLangUrl(Astro.url);
 const altLabel = lang === 'en' ? '繁中' : 'EN';
 const nav = [
-  { href: home === '/' ? '/#about' : home + '#about', label: t('nav.about') },
+  { href: localizePath('/about', lang), label: t('nav.about') },
   { href: localizePath('/events', lang), label: t('nav.events') },
   { href: localizePath('/activities', lang), label: t('nav.activities') },
 ];
