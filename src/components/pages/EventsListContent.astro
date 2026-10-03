@@ -9,19 +9,31 @@ import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const { upcoming } = splitEvents(await getEventsByLang(lang));
+const { upcoming, past } = splitEvents(await getEventsByLang(lang));
 ---
 <Layout lang={lang} title={t('meta.events_title')} description={t('meta.events_desc')}>
   <section class="section">
     <div class="container">
-      <h1>{t('events.heading')}</h1>
+      <h1>{t('nav.events')}</h1>
       <p class="muted">{t('events.intro')}</p>
-      <div class="list">
-        <EventList events={upcoming} lang={lang} emptyKey="events.empty" />
-      </div>
+
+      <section id="upcoming" class="group" aria-labelledby="upcoming-heading">
+        <h2 id="upcoming-heading">{t('events.heading')}</h2>
+        <div class="list">
+          <EventList events={upcoming} lang={lang} emptyKey="events.empty" />
+        </div>
+      </section>
+
+      <section id="past" class="group" aria-labelledby="past-heading">
+        <h2 id="past-heading">{t('activities.heading')}</h2>
+        <div class="list">
+          <EventList events={past} lang={lang} emptyKey="activities.empty" />
+        </div>
+      </section>
     </div>
   </section>
 </Layout>
 <style>
-  .list { margin-top: var(--space-6); }
+  .group { margin-top: var(--space-8); scroll-margin-top: 80px; }
+  .list { margin-top: var(--space-4); }
 </style>

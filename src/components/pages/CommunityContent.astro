@@ -39,8 +39,8 @@ const years = [...winnersByYear.keys()].sort((a, b) => b - a);
 </Layout>
 <style>
   .section { text-align: center; }
-  .community__intro { max-width: 52ch; margin-inline: auto; }
-  .community__intro p { margin-top: var(--space-2); }
+  .community__intro p { max-width: 52ch; margin: var(--space-2) auto 0; }
+  @media (min-width: 640px) { .community__intro h1 { white-space: nowrap; } }
   .community__year { margin-top: var(--space-6); }
   .community__year h2 { font-size: var(--fs-h3); color: var(--color-text-muted); font-weight: 600; }
   .community__grid {

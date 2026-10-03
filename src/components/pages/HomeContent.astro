@@ -37,7 +37,7 @@ const pastPreview = past.slice(0, 4);
     <div class="container">
       <div class="section-head">
         <h2>{t('activities.heading_home')}</h2>
-        <a class="link-accent" href={localizePath('/activities', lang)}>{t('common.see_all')} →</a>
+        <a class="link-accent" href={localizePath('/events', lang) + '#past'}>{t('common.see_all')} →</a>
       </div>
       <div class="section-head__list">
         <EventList events={pastPreview} lang={lang} emptyKey="activities.empty" />

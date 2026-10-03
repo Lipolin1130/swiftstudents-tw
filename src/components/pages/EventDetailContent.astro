@@ -14,8 +14,8 @@ const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
   year: 'numeric', month: 'long', day: 'numeric',
 }).format(entry.data.date);
 const isUpcoming = entry.data.date.getTime() >= new Date().getTime();
-const backPath = localizePath(isUpcoming ? '/events' : '/activities', lang);
-const backLabel = t(isUpcoming ? 'detail.back_events' : 'detail.back_activities');
+const backPath = localizePath('/events', lang) + (isUpcoming ? '' : '#past');
+const backLabel = t('detail.back_events');
 ---
 <Layout lang={lang} title={`${entry.data.title} · ${SITE.name}`} description={entry.data.summary}>
   <article class="section">
