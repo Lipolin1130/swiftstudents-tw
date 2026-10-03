@@ -14,6 +14,8 @@ const events = defineCollection({
     location: z.string(),
     summary: z.string(),
     image: z.union([z.string().url(), z.string().regex(/^\/[^/]/)]).optional(),
+    /** CSS object-position for the cropped thumbnail, e.g. 'left center'. */
+    imagePosition: z.string().optional(),
     tags: z.array(z.string()).default([]),
     registerUrl: z.string().url().optional(),
     featured: z.boolean().default(false),

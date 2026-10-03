@@ -5,6 +5,7 @@ endDate: 2026-07-26
 location: "NCCU CPBAE, Taipei"
 summary: "Taiwan's annual Apple developer community conference — two days on Apple platform development, AI, and software engineering."
 image: "https://iplayground.io/2026/img/iplayground-banner.png"
+imagePosition: "left center"
 tags: ["Conference"]
 registerUrl: "https://iplayground.io/2026/"
 ---

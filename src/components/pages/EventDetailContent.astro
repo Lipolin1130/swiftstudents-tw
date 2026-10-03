@@ -25,7 +25,7 @@ const backLabel = t('detail.back_events');
       <p class="muted article__meta">{dateFmt} · {entry.data.location}</p>
       {entry.data.image && (
         <div class="article__cover">
-          <img src={entry.data.image} alt="" loading="lazy" decoding="async" />
+          <img src={entry.data.image} alt="" loading="lazy" decoding="async" style={entry.data.imagePosition && `object-position: ${entry.data.imagePosition}`} />
         </div>
       )}
       {entry.data.registerUrl && (

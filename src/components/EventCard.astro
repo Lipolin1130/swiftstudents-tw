@@ -16,7 +16,7 @@ const dateFmt = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
 <a class="card" href={href}>
   <div class="card__thumb" aria-hidden="true">
     {entry.data.image
-      ? <img class="card__thumb-img" src={entry.data.image} alt="" loading="lazy" decoding="async" />
+      ? <img class="card__thumb-img" src={entry.data.image} alt="" loading="lazy" decoding="async" style={entry.data.imagePosition && `object-position: ${entry.data.imagePosition}`} />
       : <SwiftMark class="card__thumb-mark" />}
   </div>
   <div class="card__body">
