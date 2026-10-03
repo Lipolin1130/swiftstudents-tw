@@ -6,6 +6,8 @@ export default defineConfig({
   redirects: {
     '/activities': '/events#past',
     '/en/activities': '/en/events#past',
+    '/community': '/winners',
+    '/en/community': '/en/winners',
   },
   i18n: {
     defaultLocale: 'zh-Hant',
