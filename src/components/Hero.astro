@@ -15,6 +15,6 @@ const t = useTranslations(lang);
 </section>
 <style>
   .hero { padding-block: clamp(4rem, 12vw, 9rem) var(--space-4); text-align: center; }
-  .hero__title { font-size: var(--fs-hero); max-width: 16ch; margin-inline: auto; }
+  .hero__title { font-size: min(var(--fs-hero), 7.5vw); white-space: nowrap; }
   .hero__tagline { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-top: var(--space-2); max-width: 46ch; margin-inline: auto; }
 </style>
