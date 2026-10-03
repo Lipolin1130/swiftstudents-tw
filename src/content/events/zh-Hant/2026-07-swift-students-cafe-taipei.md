@@ -1,6 +1,6 @@
 ---
 title: "#SwiftStudentsCafe: Get Inspired From Winners"
-date: 2026-07-25
+date: 2026-07-25T12:00:00+08:00
 location: "政大公企中心（台北）"
 summary: "Swift Students Cafe 首次登台！Swift Student Challenge 得獎者分享從發想到完成專案的歷程，並帶來 WWDC26 現場報導。"
 image: "https://swiftstudents.jp/og/events-swift-students-cafe-taipei.jpg"

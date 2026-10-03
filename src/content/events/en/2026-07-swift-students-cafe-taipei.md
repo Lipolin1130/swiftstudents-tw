@@ -1,6 +1,6 @@
 ---
 title: "#SwiftStudentsCafe: Get Inspired From Winners"
-date: 2026-07-25
+date: 2026-07-25T12:00:00+08:00
 location: "NCCU CPBAE, Taipei"
 summary: "Swift Students Cafe comes to Taiwan for the first time — Swift Student Challenge winners share their journey from idea to finished project, plus an on-site report from WWDC26."
 image: "https://swiftstudents.jp/og/events-swift-students-cafe-taipei.jpg"
