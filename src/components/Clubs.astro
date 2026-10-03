@@ -7,9 +7,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
-<section class="clubs" aria-labelledby="clubs-heading">
+<section class="clubs" aria-label={t('clubs.heading')}>
   <div class="container">
-    <h2 id="clubs-heading" class="clubs__heading">{t('clubs.heading')}</h2>
     <ul class="clubs__row">
       {clubs.map((c) => {
         const Tag = c.url ? 'a' : 'div';
@@ -28,9 +27,8 @@ const t = useTranslations(lang);
 </section>
 <style>
   .clubs { padding-block: var(--space-4) var(--space-6); text-align: center; }
-  .clubs__heading { font-size: var(--fs-small); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }
   .clubs__row {
-    list-style: none; padding: 0; margin: var(--space-6) auto 0; max-width: 720px;
+    list-style: none; padding: 0; margin: var(--space-4) auto 0; max-width: 720px;
     display: grid; grid-template-columns: repeat(3, 1fr); align-items: end; gap: var(--space-2);
   }
   .clubs__row > li:nth-child(2) { transform: translateY(calc(-1 * var(--space-4))); }
