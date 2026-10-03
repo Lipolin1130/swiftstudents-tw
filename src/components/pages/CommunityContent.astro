@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PersonCard from '../PersonCard.astro';
+import { communityBuilders, sscWinners, type Winner } from '../../data/people';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const winnersByYear = new Map<number, Winner[]>();
+for (const w of sscWinners) {
+  winnersByYear.set(w.year, [...(winnersByYear.get(w.year) ?? []), w]);
+}
+const years = [...winnersByYear.keys()].sort((a, b) => b - a);
+---
+<Layout lang={lang} title={t('meta.community_title')} description={t('meta.community_desc')}>
+  <section class="section">
+    <div class="container">
+      <div class="community__intro">
+        <h1>{t('community_page.heading')}</h1>
+        <p class="muted">{t('community_page.intro')}</p>
+      </div>
+
+      <section class="community__group" aria-labelledby="builders-heading">
+        <h2 id="builders-heading">{t('community_page.builders_heading')}</h2>
+        <p class="muted community__desc">{t('community_page.builders_desc')}</p>
+        {communityBuilders.length > 0
+          ? <ul class="community__grid">{communityBuilders.map((p) => <li><PersonCard person={p} lang={lang} /></li>)}</ul>
+          : <p class="muted community__empty">{t('community_page.empty')}</p>}
+      </section>
+
+      <section class="community__group" aria-labelledby="winners-heading">
+        <h2 id="winners-heading">{t('community_page.winners_heading')}</h2>
+        <p class="muted community__desc">{t('community_page.winners_desc')}</p>
+        {years.length > 0
+          ? years.map((year) => (
+              <div class="community__year">
+                <h3>{year}</h3>
+                <ul class="community__grid">
+                  {winnersByYear.get(year)!.map((w) => (
+                    <li><PersonCard person={w} lang={lang} badge={w.distinguished ? t('community_page.distinguished') : undefined} /></li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          : <p class="muted community__empty">{t('community_page.empty')}</p>}
+      </section>
+    </div>
+  </section>
+</Layout>
+<style>
+  .section { text-align: center; }
+  .community__intro { max-width: 52ch; margin-inline: auto; }
+  .community__intro p { margin-top: var(--space-2); }
+  .community__group { margin-top: var(--space-12); }
+  .community__desc { max-width: 52ch; margin: var(--space-1) auto 0; }
+  .community__year { margin-top: var(--space-6); }
+  .community__year h3 { color: var(--color-text-muted); font-weight: 600; }
+  .community__grid {
+    list-style: none; padding: 0; margin: var(--space-4) 0 0;
+    display: grid; gap: var(--space-4) var(--space-2);
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  .community__empty { margin-top: var(--space-4); }
+</style>

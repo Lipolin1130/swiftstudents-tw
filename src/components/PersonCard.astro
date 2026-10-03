@@ -1,0 +1,39 @@
+---
+import type { Person } from '../data/people';
+import type { Lang } from '../i18n/ui';
+
+interface Props { person: Person; lang: Lang; badge?: string }
+const { person, lang, badge } = Astro.props;
+const Tag = person.url ? 'a' : 'div';
+const initials = person.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+---
+<Tag class="person" href={person.url} target={person.url ? '_blank' : undefined} rel={person.url ? 'noopener' : undefined}>
+  {person.photo
+    ? <img class="person__photo" src={person.photo} alt="" width="120" height="120" loading="lazy" decoding="async" />
+    : <span class="person__photo person__photo--initials" aria-hidden="true">{initials}</span>}
+  <span class="person__name">{person.name}</span>
+  {person.affiliation && <span class="person__meta muted">{person.affiliation[lang]}</span>}
+  {badge && <span class="person__badge">{badge}</span>}
+</Tag>
+<style>
+  .person { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; text-align: center; color: inherit; }
+  .person__photo {
+    width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+    border: 1px solid var(--color-border); margin-bottom: var(--space-1);
+    transition: transform 0.2s ease;
+  }
+  .person__photo--initials {
+    display: grid; place-items: center;
+    background: var(--color-accent-soft); color: var(--color-accent-ink);
+    font-size: 2rem; font-weight: 600;
+  }
+  a.person:hover .person__photo { transform: scale(1.04); }
+  .person__name { font-weight: 600; }
+  .person__meta { font-size: var(--fs-small); }
+  .person__badge {
+    margin-top: 0.25rem; font-size: 0.75rem; font-weight: 500;
+    padding: 0.1rem 0.6rem; border-radius: var(--radius-pill);
+    background: var(--color-accent-soft); color: var(--color-accent-ink);
+  }
+  @media (prefers-reduced-motion: reduce) { .person__photo { transition: none; } }
+</style>
