@@ -1,18 +1,30 @@
 ---
-import type { Person } from '../data/people';
-import type { Lang } from '../i18n/ui';
-
-interface Props { person: Person; lang: Lang; badge?: string }
-const { person, lang, badge } = Astro.props;
-const Tag = person.url ? 'a' : 'div';
-const initials = person.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+interface Props {
+  name: string;
+  /** School, department, or other short line under the name. */
+  affiliation?: string;
+  /** Image path under public/ (e.g. '/winners/jane.jpg') or a full URL. */
+  photo?: string;
+  /** CSS object-position for the circular crop, e.g. 'center top'. */
+  photoPosition?: string;
+  /** Internal path or external URL. External links open in a new tab. */
+  href?: string;
+  /** Short accent line under the affiliation, e.g. the winning project's name. */
+  note?: string;
+  badge?: string;
+}
+const { name, affiliation, photo, photoPosition, href, note, badge } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const external = !!href && /^https?:\/\//.test(href);
+const initials = name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
 ---
-<Tag class="person" href={person.url} target={person.url ? '_blank' : undefined} rel={person.url ? 'noopener' : undefined}>
-  {person.photo
-    ? <img class="person__photo" src={person.photo} alt="" width="120" height="120" loading="lazy" decoding="async" />
+<Tag class="person" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+  {photo
+    ? <img class="person__photo" src={photo} alt="" width="120" height="120" loading="lazy" decoding="async" style={photoPosition && `object-position: ${photoPosition}`} />
     : <span class="person__photo person__photo--initials" aria-hidden="true">{initials}</span>}
-  <span class="person__name">{person.name}</span>
-  {person.affiliation && <span class="person__meta muted">{person.affiliation[lang]}</span>}
+  <span class="person__name">{name}</span>
+  {affiliation && <span class="person__meta muted">{affiliation}</span>}
+  {note && <span class="person__note">{note}</span>}
   {badge && <span class="person__badge">{badge}</span>}
 </Tag>
 <style>
@@ -29,7 +41,9 @@ const initials = person.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).
   }
   a.person:hover .person__photo { transform: scale(1.04); }
   .person__name { font-weight: 600; }
-  .person__meta { font-size: var(--fs-small); }
+  .person__meta { font-size: var(--fs-small); line-height: 1.4; }
+  .person__note { font-size: var(--fs-small); font-weight: 500; color: var(--color-accent); margin-top: 0.1rem; }
+  a.person:hover .person__note { text-decoration: underline; }
   .person__badge {
     margin-top: 0.25rem; font-size: 0.75rem; font-weight: 500;
     padding: 0.1rem 0.6rem; border-radius: var(--radius-pill);

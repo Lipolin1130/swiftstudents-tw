@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PersonCard from '../PersonCard.astro';
-import { sscWinners, type Winner } from '../../data/people';
+import { getWinnersByLang, winnerPath, type WinnerEntry } from '../../lib/winners';
 import { useTranslations } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 
@@ -9,9 +9,10 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const winnersByYear = new Map<number, Winner[]>();
-for (const w of sscWinners) {
-  winnersByYear.set(w.year, [...(winnersByYear.get(w.year) ?? []), w]);
+const winners = await getWinnersByLang(lang);
+const winnersByYear = new Map<number, WinnerEntry[]>();
+for (const w of winners) {
+  winnersByYear.set(w.data.year, [...(winnersByYear.get(w.data.year) ?? []), w]);
 }
 const years = [...winnersByYear.keys()].sort((a, b) => b - a);
 ---
@@ -28,7 +29,16 @@ const years = [...winnersByYear.keys()].sort((a, b) => b - a);
               <h2>{year}</h2>
               <ul class="community__grid">
                 {winnersByYear.get(year)!.map((w) => (
-                  <li><PersonCard person={w} lang={lang} badge={w.distinguished ? t('community_page.distinguished') : undefined} /></li>
+                  <li>
+                    <PersonCard
+                      name={w.data.name}
+                      photo={w.data.photo}
+                      photoPosition={w.data.photoPosition}
+                      href={winnerPath(w, lang)}
+                      note={w.data.project}
+                      badge={w.data.distinguished ? t('community_page.distinguished') : undefined}
+                    />
+                  </li>
                 ))}
               </ul>
             </div>

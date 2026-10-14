@@ -1,0 +1,111 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import type { WinnerEntry } from '../../lib/winners';
+import { useTranslations, localizePath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+import { SITE } from '../../config';
+
+interface Props { lang: Lang; entry: WinnerEntry }
+const { lang, entry } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+const { name, year, project, summary, bio, photo, portrait, icon, cover, distinguished, links } = entry.data;
+const subtitle = t('winner.subtitle').replace('{year}', String(year));
+const backPath = localizePath('/winners', lang);
+---
+<Layout lang={lang} title={`${name} · ${project} — ${SITE.name}`} description={summary} image={cover ?? photo}>
+  <article>
+    <header class="hero">
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <a class="hero__back link-accent" href={backPath}>← {t('detail.back_winners')}</a>
+          <h1 class="hero__name">{name}</h1>
+          <p class="hero__subtitle">{subtitle}</p>
+          {bio && <p class="hero__bio">{bio}</p>}
+          {distinguished && <p class="hero__badge">{t('community_page.distinguished')}</p>}
+        </div>
+        {portrait
+          ? <img class="hero__portrait" src={portrait} alt={name} decoding="async" fetchpriority="high" />
+          : photo && <img class="hero__portrait hero__portrait--round" src={photo} alt={name} decoding="async" />}
+      </div>
+    </header>
+
+    <div class="container body">
+      <div class="app">
+        {icon && <img class="app__icon" src={icon} alt="" width="72" height="72" decoding="async" />}
+        <div>
+          <h2 class="app__name">{project}</h2>
+          <p class="app__summary muted">{summary}</p>
+        </div>
+      </div>
+      {links.length > 0 && (
+        <div class="links">
+          {links.map((l) => <a class="btn btn--ghost" href={l.url} target="_blank" rel="noopener">{l.label}</a>)}
+        </div>
+      )}
+      <div class="bio">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>
+<style>
+  /* Hero: light gray band, name on the left, cut-out portrait resting on the bottom edge. */
+  .hero {
+    background: linear-gradient(180deg, #ededf0 0%, #f7f7f9 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero__inner {
+    display: grid; grid-template-columns: 1fr 1fr; align-items: end;
+    gap: var(--space-4); min-height: 460px;
+  }
+  .hero__text { align-self: center; padding-block: var(--space-6); }
+  .hero__back { font-size: var(--fs-small); }
+  .hero__name {
+    margin-top: var(--space-3);
+    font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 600; letter-spacing: -0.02em;
+  }
+  .hero__subtitle {
+    margin-top: 0.5rem; font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+    font-weight: 300; line-height: 1.3; color: var(--color-text);
+  }
+  .hero__bio { margin-top: var(--space-3); max-width: 44ch; color: var(--color-text-muted); line-height: 1.75; }
+  .hero__badge {
+    display: inline-block; margin-top: var(--space-2);
+    font-size: 0.75rem; font-weight: 500; padding: 0.1rem 0.6rem; border-radius: var(--radius-pill);
+    background: var(--color-accent-soft); color: var(--color-accent-ink);
+  }
+  .hero__portrait {
+    justify-self: center; display: block;
+    height: 440px; width: auto; max-width: 100%; object-fit: contain; object-position: bottom;
+    margin-top: var(--space-4);
+  }
+  .hero__portrait--round {
+    width: 240px; height: 240px; border-radius: 50%; object-fit: cover;
+    align-self: center; margin-block: var(--space-6);
+  }
+
+  /* Body: project intro, then the write-up. */
+  .body { padding-block: var(--space-8) var(--space-12); }
+  .app { display: flex; align-items: center; gap: var(--space-2); }
+  .app__icon { width: 72px; height: 72px; flex-shrink: 0; border-radius: 16px; border: 1px solid var(--color-border); }
+  .app__name { font-size: var(--fs-h3); font-weight: 600; }
+  .app__summary { margin-top: 0.25rem; }
+  .links { margin-top: var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .bio { margin-top: var(--space-4); max-width: 720px; }
+  .bio > :global(:first-child) { margin-top: 0; }
+  .bio :global(p) { margin-block: 0 var(--space-2); }
+  .bio :global(h2) { font-size: var(--fs-h3); font-weight: 600; margin: var(--space-4) 0 var(--space-1); break-after: avoid; }
+  .bio :global(ul) { margin: 0 0 var(--space-2); padding-left: 1.25rem; }
+  .bio :global(li) { margin-block: 0.25rem; break-inside: avoid; }
+
+  @media (max-width: 768px) {
+    .hero__inner { grid-template-columns: 1fr; min-height: 0; gap: 0; text-align: center; }
+    .hero__text { padding-block: var(--space-4) 0; }
+    .hero__bio { margin-inline: auto; }
+    .hero__portrait { height: 340px; }
+    .hero__portrait--round { width: 180px; height: 180px; margin-block: var(--space-4); }
+    .body { padding-block: var(--space-6) var(--space-8); }
+  }
+</style>
