@@ -10,13 +10,13 @@ interface Props { lang: Lang; entry: WinnerEntry }
 const { lang, entry } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await render(entry);
-const { name, year, project, summary, bio, photo, portrait, icon, cover, distinguished, links } = entry.data;
+const { name, year, project, summary, bio, photo, portrait, heroBackground, icon, cover, distinguished, links } = entry.data;
 const subtitle = t('winner.subtitle').replace('{year}', String(year));
 const backPath = localizePath('/winners', lang);
 ---
 <Layout lang={lang} title={`${name} · ${project} — ${SITE.name}`} description={summary} image={cover ?? photo}>
   <article>
-    <header class="hero">
+    <header class:list={['hero', { 'hero--dark': heroBackground }]} style={heroBackground && `--hero-bg: ${heroBackground}`}>
       <div class="container hero__inner">
         <div class="hero__text">
           <a class="hero__back link-accent" href={backPath}>← {t('detail.back_winners')}</a>
@@ -56,6 +56,9 @@ const backPath = localizePath('/winners', lang);
     background: linear-gradient(180deg, #ededf0 0%, #f7f7f9 100%);
     border-bottom: 1px solid var(--color-border);
   }
+  .hero--dark { background: var(--hero-bg); border-bottom: 0; color: #f5f5f7; }
+  .hero--dark .hero__name, .hero--dark .hero__subtitle { color: #f5f5f7; }
+  .hero--dark .hero__bio { color: rgba(245, 245, 247, 0.72); }
   .hero__inner {
     display: grid; grid-template-columns: 1fr 1fr; align-items: end;
     gap: var(--space-4); min-height: 460px;
@@ -78,8 +81,7 @@ const backPath = localizePath('/winners', lang);
   }
   .hero__portrait {
     justify-self: center; display: block;
-    height: 440px; width: auto; max-width: 100%; object-fit: contain; object-position: bottom;
-    margin-top: var(--space-4);
+    height: 480px; width: auto; max-width: 100%; object-fit: contain; object-position: bottom;
   }
   .hero__portrait--round {
     width: 240px; height: 240px; border-radius: 50%; object-fit: cover;

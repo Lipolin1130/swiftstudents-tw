@@ -45,8 +45,10 @@ const winners = defineCollection({
     photo: imagePath.optional(),
     /** CSS object-position for the circular headshot crop, e.g. 'center top'. */
     photoPosition: z.string().optional(),
-    /** Background-free portrait (transparent PNG) for the detail page hero. */
+    /** Portrait for the detail page hero; it rests on the hero's bottom edge. */
     portrait: imagePath.optional(),
+    /** Hero background color matching the portrait's backdrop (e.g. '#0e0210'). Setting it switches the hero to light text. */
+    heroBackground: z.string().regex(/^#[0-9a-fA-F]{3,8}$/).optional(),
     /** App icon shown next to the project name on the detail page. */
     icon: imagePath.optional(),
     /** Wide photo used as the social preview image. */
