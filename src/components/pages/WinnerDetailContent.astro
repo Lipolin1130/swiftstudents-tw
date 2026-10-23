@@ -10,7 +10,7 @@ interface Props { lang: Lang; entry: WinnerEntry }
 const { lang, entry } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await render(entry);
-const { name, year, project, summary, bio, photo, portrait, heroBackground, icon, cover, distinguished, links } = entry.data;
+const { name, year, project, summary, bio, photo, portrait, heroBackground, icon, cover, screenshots, distinguished, links } = entry.data;
 const subtitle = t('winner.subtitle').replace('{year}', String(year));
 const backPath = localizePath('/winners', lang);
 ---
@@ -47,6 +47,28 @@ const backPath = localizePath('/winners', lang);
       <div class="bio">
         <Content />
       </div>
+      {screenshots.length > 0 && (
+        <section class="screenshots" aria-labelledby="screenshots-heading">
+          <h3 id="screenshots-heading" class="screenshots__heading">{t('winner.screenshots')}</h3>
+          <ul class="screenshots__gallery" tabindex="0" aria-label={t('winner.screenshots')}>
+            {screenshots.map((screenshot) => (
+              <li class="screenshots__item">
+                <div class="ipad">
+                  <img
+                    class="ipad__screen"
+                    src={screenshot.src}
+                    alt={screenshot.alt}
+                    width={screenshot.width}
+                    height={screenshot.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   </article>
 </Layout>
@@ -101,6 +123,35 @@ const backPath = localizePath('/winners', lang);
   .bio :global(h2) { font-size: var(--fs-h3); font-weight: 600; margin: var(--space-4) 0 var(--space-1); break-after: avoid; }
   .bio :global(ul) { margin: 0 0 var(--space-2); padding-left: 1.25rem; }
   .bio :global(li) { margin-block: 0.25rem; break-inside: avoid; }
+
+  .screenshots { margin-top: var(--space-6); }
+  .screenshots__heading { font-size: var(--fs-h3); font-weight: 600; }
+  .screenshots__gallery {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2.5rem); list-style: none;
+    margin: var(--space-3) 0 0; padding: 2px 2px var(--space-3);
+  }
+  .screenshots__gallery:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+  .screenshots__item { min-width: 0; }
+  .ipad {
+    position: relative; padding: 22px 12px; border-radius: 26px;
+    background: #101114; border: 2px solid #53565b;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 12%), 0 12px 24px rgb(0 0 0 / 10%);
+  }
+  .ipad::before {
+    content: ''; position: absolute; top: 8px; left: 50%;
+    width: 5px; height: 5px; border-radius: 50%; transform: translateX(-50%);
+    background: #17253a; box-shadow: 0 0 0 2px #08090c;
+  }
+  .ipad__screen { display: block; width: 100%; height: auto; border-radius: 10px; }
+
+  @media (max-width: 640px) {
+    .screenshots__gallery {
+      grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%;
+      gap: var(--space-2); overflow-x: auto; scroll-snap-type: x mandatory;
+    }
+    .screenshots__item { scroll-snap-align: start; }
+  }
 
   @media (max-width: 768px) {
     .hero__inner { grid-template-columns: 1fr; min-height: 0; gap: 0; text-align: center; }

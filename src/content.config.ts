@@ -53,6 +53,12 @@ const winners = defineCollection({
     icon: imagePath.optional(),
     /** Wide photo used as the social preview image. */
     cover: imagePath.optional(),
+    screenshots: z.array(z.object({
+      src: imagePath,
+      alt: z.string(),
+      width: z.number().int().positive(),
+      height: z.number().int().positive(),
+    })).default([]),
     /** Swift Student Challenge Distinguished Winner. */
     distinguished: z.boolean().default(false),
     /** External links (App Store, GitHub, demo video…) shown as buttons. */

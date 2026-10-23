@@ -9,6 +9,19 @@ portrait: "/winners/2024-lin-kai-yu-portrait.jpg"
 heroBackground: "#0e0210"
 icon: "/winners/2024-lin-kai-yu-icon.png"
 cover: "/winners/2024-lin-kai-yu-cover.jpg"
+screenshots:
+  - src: "/winners/2024-lin-kai-yu-mindguard-home.png"
+    alt: "MindGuard 首頁，提供閱讀故事與益智遊戲入口。"
+    width: 1390
+    height: 2000
+  - src: "/winners/2024-lin-kai-yu-mindguard-story.png"
+    alt: "MindGuard 故事介紹，以樹木比喻大腦，鼓勵使用者動動腦。"
+    width: 1390
+    height: 2000
+  - src: "/winners/2024-lin-kai-yu-mindguard-game.png"
+    alt: "MindGuard 的 Lost The Way 遊戲選單，顯示簡單難度與開始按鈕。"
+    width: 1390
+    height: 2000
 ---
 
 目前失智症仍然沒有解藥，但研究顯示，經常從事刺激大腦的活動可以降低罹患失智症的風險。MindGuard 就是從這個想法出發：把「動腦」變成一件有趣的事，讓長輩願意每天打開來玩，在遊戲裡自然而然地預防失智。

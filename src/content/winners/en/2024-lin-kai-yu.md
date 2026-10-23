@@ -9,6 +9,19 @@ portrait: "/winners/2024-lin-kai-yu-portrait.jpg"
 heroBackground: "#0e0210"
 icon: "/winners/2024-lin-kai-yu-icon.png"
 cover: "/winners/2024-lin-kai-yu-cover.jpg"
+screenshots:
+  - src: "/winners/2024-lin-kai-yu-mindguard-home.png"
+    alt: "MindGuard home screen with Read Story and Play Game buttons."
+    width: 1390
+    height: 2000
+  - src: "/winners/2024-lin-kai-yu-mindguard-story.png"
+    alt: "MindGuard story introduction, using a tree to illustrate keeping the brain active."
+    width: 1390
+    height: 2000
+  - src: "/winners/2024-lin-kai-yu-mindguard-game.png"
+    alt: "MindGuard Lost The Way game selection with Easy difficulty and a Start button."
+    width: 1390
+    height: 2000
 ---
 
 There is still no cure for dementia, but research shows that regularly doing activities that stimulate the brain can lower the risk of developing it. MindGuard starts from that idea: make exercising your brain fun enough that older adults want to open the app every day, and let prevention happen naturally through play.
