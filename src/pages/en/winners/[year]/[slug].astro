@@ -1,0 +1,15 @@
+---
+import WinnerDetailContent from '../../../../components/pages/WinnerDetailContent.astro';
+import { getWinnersByLang, winnerSlug } from '../../../../lib/winners';
+
+export async function getStaticPaths() {
+  const winners = await getWinnersByLang('en');
+  return winners.map((entry) => ({
+    params: { year: String(entry.data.year), slug: winnerSlug(entry) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+<WinnerDetailContent lang="en" entry={entry} />

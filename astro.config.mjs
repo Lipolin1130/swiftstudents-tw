@@ -8,6 +8,9 @@ export default defineConfig({
     '/en/activities': '/en/events#past',
     '/community': '/winners',
     '/en/community': '/en/winners',
+    // Winner pages moved from /winners/<year>-<name> to /winners/<year>/<name>.
+    '/winners/2024-lin-kai-yu': '/winners/2024/lin-kai-yu',
+    '/en/winners/2024-lin-kai-yu': '/en/winners/2024/lin-kai-yu',
   },
   i18n: {
     defaultLocale: 'zh-Hant',
