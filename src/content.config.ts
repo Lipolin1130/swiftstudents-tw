@@ -49,6 +49,8 @@ const winners = defineCollection({
     portrait: imagePath.optional(),
     /** Hero background color matching the portrait's backdrop (e.g. '#0e0210'). Setting it switches the hero to light text. */
     heroBackground: z.string().regex(/^#[0-9a-fA-F]{3,8}$/).optional(),
+    /** The portrait is a landscape composition; the hero gives it the wider column and lets it run full-bleed on phones. */
+    widePortrait: z.boolean().default(false),
     /** App icon shown next to the project name on the detail page. */
     icon: imagePath.optional(),
     /** Wide photo used as the social preview image. */
@@ -59,6 +61,8 @@ const winners = defineCollection({
       width: z.number().int().positive(),
       height: z.number().int().positive(),
     })).default([]),
+    /** Device the screenshots were taken on; picks the frame drawn around them. */
+    screenshotDevice: z.enum(['ipad', 'iphone']).default('ipad'),
     /** Swift Student Challenge Distinguished Winner. */
     distinguished: z.boolean().default(false),
     /** External links (App Store, GitHub, demo video…) shown as buttons. */

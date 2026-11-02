@@ -10,14 +10,17 @@ interface Props { lang: Lang; entry: WinnerEntry }
 const { lang, entry } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await render(entry);
-const { name, year, project, summary, bio, photo, portrait, heroBackground, icon, cover, screenshots, distinguished, links } = entry.data;
+const { name, year, project, summary, bio, photo, portrait, heroBackground, widePortrait, icon, cover, screenshots, screenshotDevice, distinguished, links } = entry.data;
 const subtitle = t('winner.subtitle').replace('{year}', String(year));
 const backPath = localizePath('/winners', lang);
 ---
 <Layout lang={lang} title={`${name} · ${project} — ${SITE.name}`} description={summary} image={cover ?? photo}>
   <article>
     <header class:list={['hero', { 'hero--dark': heroBackground }]} style={heroBackground && `--hero-bg: ${heroBackground}`}>
-      <div class="container hero__inner">
+      <div class:list={['container', 'hero__inner', {
+        'hero__inner--text-only': !portrait && !photo,
+        'hero__inner--wide': portrait && widePortrait,
+      }]}>
         <div class="hero__text">
           <a class="hero__back link-accent" href={backPath}>← {t('detail.back_winners')}</a>
           <h1 class="hero__name">{name}</h1>
@@ -50,12 +53,12 @@ const backPath = localizePath('/winners', lang);
       {screenshots.length > 0 && (
         <section class="screenshots" aria-labelledby="screenshots-heading">
           <h3 id="screenshots-heading" class="screenshots__heading">{t('winner.screenshots')}</h3>
-          <ul class="screenshots__gallery" tabindex="0" aria-label={t('winner.screenshots')}>
+          <ul class:list={['screenshots__gallery', `screenshots__gallery--${screenshotDevice}`]} tabindex="0" aria-label={t('winner.screenshots')}>
             {screenshots.map((screenshot) => (
               <li class="screenshots__item">
-                <div class="ipad">
+                <div class:list={['device', `device--${screenshotDevice}`]}>
                   <img
-                    class="ipad__screen"
+                    class="device__screen"
                     src={screenshot.src}
                     alt={screenshot.alt}
                     width={screenshot.width}
@@ -85,6 +88,10 @@ const backPath = localizePath('/winners', lang);
     display: grid; grid-template-columns: 1fr 1fr; align-items: end;
     gap: var(--space-4); min-height: 460px;
   }
+  .hero__inner--text-only { grid-template-columns: 1fr; min-height: 0; }
+  /* Landscape portrait: wider column, and the image's own height sets the hero's. */
+  .hero__inner--wide { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); min-height: 0; }
+  .hero__inner--wide .hero__portrait { width: 100%; height: auto; }
   .hero__text { align-self: center; padding-block: var(--space-6); }
   .hero__back { font-size: var(--fs-small); }
   .hero__name {
@@ -132,24 +139,35 @@ const backPath = localizePath('/winners', lang);
     margin: var(--space-3) 0 0; padding: 2px 2px var(--space-3);
   }
   .screenshots__gallery:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+  /* Tall iPhone shots would tower over the page at full width. */
+  .screenshots__gallery--iphone { max-width: 860px; }
   .screenshots__item { min-width: 0; }
-  .ipad {
-    position: relative; padding: 22px 12px; border-radius: 26px;
-    background: #101114; border: 2px solid #53565b;
+  .device {
+    position: relative; background: #101114; border: 2px solid #53565b;
     box-shadow: 0 2px 3px rgb(0 0 0 / 12%), 0 12px 24px rgb(0 0 0 / 10%);
   }
-  .ipad::before {
+  .device__screen { display: block; width: 100%; height: auto; border-radius: 10px; }
+  .device--ipad { padding: 22px 12px; border-radius: 26px; }
+  .device--ipad::before {
     content: ''; position: absolute; top: 8px; left: 50%;
     width: 5px; height: 5px; border-radius: 50%; transform: translateX(-50%);
     background: #17253a; box-shadow: 0 0 0 2px #08090c;
   }
-  .ipad__screen { display: block; width: 100%; height: auto; border-radius: 10px; }
+  .device--iphone { padding: 7px; border-radius: 42px; }
+  .device--iphone .device__screen { border-radius: 35px; }
+  /* Dynamic Island, drawn over the screenshot's status bar. */
+  .device--iphone::before {
+    content: ''; position: absolute; top: 14px; left: 50%;
+    width: 30%; aspect-ratio: 125 / 37; border-radius: var(--radius-pill);
+    transform: translateX(-50%); background: #000;
+  }
 
   @media (max-width: 640px) {
     .screenshots__gallery {
       grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%;
       gap: var(--space-2); overflow-x: auto; scroll-snap-type: x mandatory;
     }
+    .screenshots__gallery--iphone { grid-auto-columns: 72%; }
     .screenshots__item { scroll-snap-align: start; }
   }
 
@@ -158,6 +176,10 @@ const backPath = localizePath('/winners', lang);
     .hero__text { padding-block: var(--space-4) 0; }
     .hero__bio { margin-inline: auto; }
     .hero__portrait { height: 340px; }
+    .hero__inner--wide .hero__portrait {
+      width: calc(100% + 2 * var(--space-3)); max-width: none; height: auto;
+      margin-inline: calc(-1 * var(--space-3));
+    }
     .hero__portrait--round { width: 180px; height: 180px; margin-block: var(--space-4); }
     .body { padding-block: var(--space-6) var(--space-8); }
   }
